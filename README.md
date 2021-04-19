@@ -44,4 +44,4 @@ ServiceNow as always been the workflow management tool to get the required appro
 
 "Picture speaks thousand words !!!"
 
-<img src="images/cicd_with_auto_deplyment.jpg">
+<img src="images/cicd_with_auto_deplyment.jpg" width="800" height="600">
