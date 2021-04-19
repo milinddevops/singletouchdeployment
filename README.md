@@ -15,5 +15,5 @@ The process comprise with collection of specialized application release automati
 ## Tools stack
 
 
-<img src="images/jenkins.png" width="200" height="200">    <img src="images/JUnit.png" width="200" height="200">     <img src="images/sonarqube.png" width="400" height="200">     <img src="images/docker.jpg" width="200" height="200">    <img src="images/ansible.png" width="200" height="200">    <img src="images/selenium.jpeg" width="200" height="200">    <img src="images/ruundeck.png" width="200" height="200">  <img src="images/servicenow.jpeg" width="200" height="200">
+<img src="images/jenkins.png" width="200" height="200">    <img src="images/JUnit.png" width="200" height="200">     <img src="images/sonarqube.png" width="400" height="200">     <img src="images/docker.jpg" width="200" height="200">    <img src="images/ansible.png" width="200" height="200">    <img src="images/selenium.jpeg" width="200" height="200">    <img src="images/ruundeck.png" width="200" height="200"><img src="images/servicenow.jpeg" width="200" height="200">
 ## How it works
