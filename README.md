@@ -14,5 +14,5 @@ The process comprise with collection of specialized application release automati
 
 ## Tools stack
 
-![Jenkins](images/jenkins.png "Title"){:height="200px" width="200px"}
+![Jenkins](images/jenkins.png =200x200)
 ## How it works
