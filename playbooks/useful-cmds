@@ -1,0 +1,5 @@
+# Port forwarding in LXD containers
+lxc config device add mycontainer myport80 proxy listen=tcp:0.0.0.0:80 connect=tcp:127.0.0.1:80
+
+# Add permission to run pods with any user
+oc adm policy add-scc-to-user anyuid -z default

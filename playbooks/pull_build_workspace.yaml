@@ -1,0 +1,10 @@
+-
+  name: Pull the build workspace data on the ansible hosts
+  hosts: jenkins
+  tasks:
+    - name: Run the synchronization
+      synchronize:
+        src: /tmp/pet-clinic_37
+        dest: /opt/build_workspaces
+        mode: pull
+  

@@ -1,0 +1,14 @@
+-
+ name: Run python script for SNOW change_request
+ hosts: localhost
+ gather_facts: no
+
+ tasks:
+ - name: Fetch SNOW CRs
+   script: /opt/playbooks/craw.py
+   register: snow_crs
+
+ - debug:
+    var: snow_crs
+
+ 

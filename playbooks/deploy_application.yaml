@@ -1,0 +1,92 @@
+- 
+  # this playbook accepts the parameters
+  # 1. build_id - this is the parameter passed from the jenkins pipeline.
+  name: Deploy application on the Openshift cluster
+  hosts: all
+  tasks: 
+    - name: Pull workspace artifacts from jenkins server.
+      synchronize:
+        mode: pull
+        src: /tmp/{{ build_id }}
+        dest: /opt/build_workspaces
+      when: inventory_hostname == 'jenkins'
+
+    - name: Verify pulled artifacts.
+      command: ls -l /tmp/{{build_id}}
+      register: is_workspace_pulled
+      when: inventory_hostname == 'jenkins'
+    
+    - name: Artifact verification result.
+      debug: msg='Workspace pulled successfullly.'
+      when: inventory_hostname == 'jenkins'   and
+            is_workspace_pulled.stderr == '' 
+    
+    # <TO-DO> Add here the promote task for UAT deployment
+
+    - name: Push template files to Openshift cluster.
+      synchronize:
+        mode: push
+        src: /opt/build_workspaces/{{build_id}}/
+        dest: /tmp/{{build_id}}/
+      when: inventory_hostname == 'openshift'
+    
+    - name: Login to Openshift cluster
+      command: oc login -u system:admin
+      register: login_output
+      when: inventory_hostname == 'openshift'
+
+    - name: Upgrade image version on DEV
+      ansible.builtin.lineinfile:
+        path: /tmp/{{build_id}}/openshift/pet-clinic-app.{{env}}
+        regexp: '^IMAGE_VERSION='
+        line: IMAGE_VERSION={{build_id}}
+      when: inventory_hostname == 'openshift' and env == 'dev'
+      
+    - name: Upgrade image version on STAGE
+      ansible.builtin.lineinfile:
+        path: /tmp/{{build_id}}/openshift/pet-clinic-app.{{env}}
+        regexp: '^IMAGE_VERSION='
+        line: IMAGE_VERSION={{build_id}}_stage
+      when: inventory_hostname == 'openshift' and env == 'stage'
+
+
+    - name: Process application template.
+      shell: oc -n {{env}} process -f /tmp/{{build_id}}/openshift/pet-clinic-app.json --param-file=/tmp/{{build_id}}/openshift/pet-clinic-app.{{env}} | oc apply -n {{env}} -f -
+      register: oc_deplpy
+      when: inventory_hostname == 'openshift'
+      
+    #- name: Convert into json 
+    #  command: echo "{{oc_deplpy.stdout}}" | python -m json.tool
+    #  register: converted
+    #  when: inventory_hostname == 'openshift'
+
+    #- name: Show json output 
+    #  debug:
+    #    msg: "{{converted.stdout}}"
+
+    #- name: Prepare deploy json
+    #  copy:                                                                                              
+    #    content: "{{oc_deplpy.stdout}}" 
+    #    dest: "/tmp/{{build_id}}/openshift/deploy_unformatted.json"
+    #  when: inventory_hostname == 'openshift'
+    
+    #- name: Format json
+    #  command: cat /tmp/{{build_id}}/openshift/deploy_unformatted.json
+    #  register: format_json
+    #  when: inventory_hostname == 'openshift'
+
+    #- name: Convert into json 
+    #  command: echo "{{format_json.stdout}}" | python -m json.tool
+    #  register: converted
+    #  when: inventory_hostname == 'openshift'
+
+    #- name: Prepare formatted json
+    #  copy:
+    #    content: "{{converted.stdout}}"
+    #    dest: /tmp/{{build_id}}/openshift/deploy.json
+    #  when: inventory_hostname == 'openshift'
+
+    #- name: Run json 
+    #  command: oc -n cicd-applications apply -f /tmp/{{build_id}}/openshift/deploy.json
+    #  register: oc_run_out
+    #  when: inventory_hostname == 'openshift'

@@ -1,0 +1,55 @@
+@Library("shared-library") _
+
+pipeline {
+    agent any
+
+    tools {
+        maven 'maven'
+        jdk 'jdk8'
+    }
+
+    stages {
+        stage("Prep Workspace") {
+            steps {
+                prepWorkspace("http://192.168.0.157:3000/milind/pet-clinic.git","GiteaCreds")
+            }
+        }
+
+        stage("Sonar Code Scan") {
+            steps {
+                sonarScan()
+            }
+        }
+
+        stage("Code Quality Check") {
+            steps {
+                checkCodeQuality()
+            }
+        }
+
+        stage("Build App") {
+            steps {
+                buildApp()
+            }
+        }
+
+        stage("Build Image") {
+            steps {
+                dockerBuild("${JOB_NAME}", "${BUILD_NUMBER}")
+            }
+        }
+
+        stage("Deploy on Dev") {
+            steps {
+                Deploy('dev', 'c3c58254-ac06-4ff2-820b-0016a10de0cf', "${JOB_NAME}", "${BUILD_ID}")
+            }
+        }
+
+        stage("Generate SNOW CR") {
+            steps {
+                generateSnowCr('dev', 'c7f07e90-bb8a-4e21-864b-5645d24d394c', "${JOB_NAME}", "${BUILD_ID}")
+                
+            }
+        }
+    }
+}

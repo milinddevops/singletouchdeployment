@@ -1,0 +1,2 @@
+jenkins ansible_host=10.125.214.11 ansible_connection=ssh ansible_user=root ansible_ssh_pass=milind123
+openshift ansible_host=10.125.214.65 ansible_connection=ssh ansible_user=root  ansible_ssh_pass=milind123
