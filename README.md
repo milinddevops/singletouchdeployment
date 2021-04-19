@@ -15,7 +15,7 @@ The process comprise with collection of specialized application release automati
 ## Tools stack
 
 ### Jenkins
-### MAVEN
+### maven
 ### JUnit
 ### SonarQube
 ### Docker
