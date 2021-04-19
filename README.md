@@ -1,4 +1,4 @@
-# singletouchdeployment
+# Single Touch Deployment
 
 This is an concept to implementing the end-to-end deployment with no manual intervention. This is the continues process with 100% automation, this ensures application sanity, correctness, vulnerability scans, containerization, deployments. 
 
@@ -14,6 +14,14 @@ The process comprise with collection of specialized application release automati
 
 ## Tools stack
 
+### Jenkins
+### MAVEN
+### JUnit
+### SonarQube
+### Docker
+### Ansible
+### Selenium
+### ServiceNOW
 
-<img src="images/jenkins.png" width="200" height="200">    <img src="images/JUnit.png" width="200" height="200">     <img src="images/sonarqube.png" width="400" height="200">     <img src="images/docker.jpg" width="200" height="200">    <img src="images/ansible.png" width="200" height="200">    <img src="images/selenium.jpeg" width="200" height="200">    <img src="images/ruundeck.png" width="200" height="200"><img src="images/servicenow.jpeg" width="200" height="200">
+<img src="images/jenkins.png" width="200" height="200">    <img src="images/maven.png" width="200" height="200">     <img src="images/JUnit.png" width="200" height="200">      <img src="images/sonarqube.png" width="400" height="200">     <img src="images/docker.jpg" width="200" height="200">    <img src="images/ansible.png" width="200" height="200">    <img src="images/selenium.jpeg" width="200" height="200">    <img src="images/ruundeck.png" width="200" height="200"><img src="images/servicenow.jpeg" width="200" height="200">
 ## How it works
